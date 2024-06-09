@@ -6,3 +6,4 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
     });
 });
+//파이팅파이팅!!!!!!!똥먹어
