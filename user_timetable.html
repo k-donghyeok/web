@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>시간표 만들기</title>
-    <link rel="stylesheet" href="timetable_styles.css">
+    <title>내 시간표</title>
+    <link rel="stylesheet" href="user_timetable_styles.css">
+    <script type="module" src="user_timetable_scripts.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -16,15 +17,7 @@
         </div>
     </div>
     <div class="container">
-        <h2>시간표 만들기</h2>
-        <div class="search-container">
-            <input type="text" id="course-search" placeholder="강좌 검색">
-            <input type="text" id="course-time" placeholder="시간">
-            <input type="text" id="course-year" placeholder="학년">
-            <input type="text" id="course-type" placeholder="구분">
-            <input type="text" id="course-credit" placeholder="학점">
-            <button onclick="searchCourses()">검색</button>
-        </div>
+        <h2>내 시간표</h2>
         <div id="search-results" class="search-results"></div>
         <h3>내 시간표</h3>
         <table id="timetable">
@@ -41,9 +34,7 @@
             <tbody>
                 <tr>
                     <td>09:00 - 10:00</td>
-                    <td class="course-item" style="background-color: aqua;">
-                        컴퓨터공학
-                    </td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -53,9 +44,7 @@
                     <td>10:00 - 11:00</td>
                     <td></td>
                     <td></td>
-                    <td class="course-item" style="background-color: aqua;">
-                        컴퓨터공학
-                    </td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -63,7 +52,5 @@
             </tbody>
         </table>
     </div>
-
-    <script type="module" src="timetable_scripts.js"></script>
 </body>
 </html>

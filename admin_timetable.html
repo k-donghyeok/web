@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 시간표 관리</title>
+    <link rel="stylesheet" href="admin_timetable_styles.css">
+    <script type="module" src="admin_timetable_scripts.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <button class="menu-btn">메뉴</button>
+        <div class="dropdown-content">
+            <a href="admin_main.html" target="_self">전체 시간표</a>
+            <a href="admin_courses.html" target="_self">강의 관리</a>
+        </div>
+    </div>
+    <div class="container">
+        <h2>강의 추가</h2>
+        <div class="add-course-container">
+            <input type="text" id="new-course-name" placeholder="강좌명">
+            <div id="course-times">
+                <div class="course-time">
+                    <select class="course-day">
+                        <option value="월">월</option>
+                        <option value="화">화</option>
+                        <option value="수">수</option>
+                        <option value="목">목</option>
+                        <option value="금">금</option>
+                    </select>
+                    <input type="time" class="course-start">
+                    <input type="time" class="course-end">
+                </div>
+            </div>
+            <button onclick="addCourseTime()">시간 추가</button>
+            <button onclick="addCourse()">추가</button>
+        </div>
+        <div id="all-courses" class="search-results"></div>
+    </div>
+</body>
+</html>
