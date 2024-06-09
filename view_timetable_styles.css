@@ -1,0 +1,79 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* 배경색을 흰색으로 변경 */
+    color: #000000; /* 텍스트 색상을 검정색으로 변경 */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background-color: #333;
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+.container {
+    margin-top: 60px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#timetable {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#timetable th, #timetable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+#timetable th {
+    background-color: #f4f4f4;
+}

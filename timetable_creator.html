@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간표 만들기</title>
+    <link rel="stylesheet" href="timetable_styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button class="menu-btn">메뉴</button>
+        <div class="dropdown-content">
+            <a href="main.html" target="_self">내 시간표</a>
+            <a href="friends.html" target="_self">친구</a>
+            <a href="my-info.html" target="_self">내정보</a>
+        </div>
+    </div>
+    <div class="container">
+        <h2>시간표 만들기</h2>
+        <div class="search-container">
+            <input type="text" id="course-search" placeholder="강좌 검색">
+            <input type="text" id="course-time" placeholder="시간">
+            <input type="text" id="course-year" placeholder="학년">
+            <input type="text" id="course-type" placeholder="구분">
+            <input type="text" id="course-credit" placeholder="학점">
+            <button onclick="searchCourses()">검색</button>
+        </div>
+        <div id="search-results" class="search-results"></div>
+        <h3>내 시간표</h3>
+        <table id="timetable">
+            <thead>
+                <tr>
+                    <th>시간</th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>09:00 - 10:00</td>
+                    <td class="course-item" style="background-color: aqua;">
+                        컴퓨터공학
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10:00 - 11:00</td>
+                    <td></td>
+                    <td></td>
+                    <td class="course-item" style="background-color: aqua;">
+                        컴퓨터공학
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- 더 많은 행 추가 가능 -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="timetable_scripts.js"></script>
+</body>
+</html>

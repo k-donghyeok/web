@@ -1,0 +1,133 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* 배경색을 흰색으로 변경 */
+    color: #000000; /* 텍스트 색상을 검정색으로 변경 */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background-color: #333;
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #555;
+}
+
+.container {
+    margin-top: 60px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.add-friend-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.add-friend-btn:hover {
+    background-color: #555;
+}
+
+#friend-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px; /* 높이를 늘리기 위해 패딩 추가 */
+    width: 60%; /* 가로 길이를 줄임 */
+    margin: 0 auto 20px auto; /* 가운데 정렬 및 아래쪽 마진 추가 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative; /* 추가 */
+}
+
+.friend-item .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.friend-item .friend-name {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.friend-options {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 친구 항목 내에서 절대 위치 */
+    right: 10px; /* 오른쪽 끝에 배치 */
+    top: 50%; /* 세로 중앙 정렬 */
+    transform: translateY(-50%); /* 세로 중앙 정렬을 위한 변환 */
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.friend-options a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 5px;
+}
+
+.friend-options a:hover {
+    text-decoration: underline;
+}
+
+.friend-item:hover .friend-options {
+    display: block; /* 친구 항목에 마우스를 올리면 표시 */
+}

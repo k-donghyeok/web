@@ -1,0 +1,76 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: url('main_logo_view.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.content, .auth-form {
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* 투명한 배경 설정 */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 80%;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.buttons button, .auth-form button {
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button:hover, .auth-form button:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.auth-form input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.auth-form p {
+    margin-top: 20px;
+}
+
+.auth-form a {
+    color: white;
+    text-decoration: underline;
+}
+
+.auth-form a:hover {
+    color: #ddd;
+}

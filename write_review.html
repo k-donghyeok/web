@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강의평 작성</title>
+    <link rel="stylesheet" href="write_review_styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button class="menu-btn">메뉴</button>
+        <div class="dropdown-content">
+            <a href="main.html" target="_self">내 시간표</a>
+            <a href="timetable_creator.html" target="_self">시간표 만들기</a>
+            <a href="friends.html" target="_self">친구</a>
+            <a href="my-info.html" target="_self">내정보</a>
+        </div>
+    </div>
+    <div class="container">
+        <h2>강의평 작성</h2>
+        <div class="rating-container">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+        </div>
+        <textarea id="review-text" placeholder="강의평을 작성하세요..."></textarea>
+        <button id="submit-review">작성하기</button>
+    </div>
+    <script src="write_review_scripts.js"></script>
+</body>
+</html>

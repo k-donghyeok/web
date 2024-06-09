@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>친구 목록</title>
+    <link rel="stylesheet" href="friends.css">
+</head>
+<body>
+    <div class="navbar">
+        <button class="menu-btn">메뉴</button>
+        <div class="dropdown-content">
+            <a href="timetable_creator.html" target="_self">시간표 만들기</a>
+            <a href="friends.html" target="_self">친구</a>
+            <a href="my-info.html" target="_self">내정보</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>친구 목록</h1>
+        <button class="add-friend-btn" onclick="location.href='add_friend.html'">친구 추가</button>
+        <ul id="friend-list">
+            <!-- 친구 목록 항목 -->
+            <li class="friend-item">
+                <img src="human.jpg" alt="강동혁의 프로필 사진" class="profile-pic">
+                <span class="friend-name">강동혁</span>
+                <div class="friend-options">
+                    <a href="#" onclick="deleteFriend()">친구 삭제</a>
+                    <hr>
+                    <a href="view_timetable.html" target="_self">시간표 보기</a>
+                </div>
+            </li>
+            <li class="friend-item">
+                <img src="human.jpg" alt="김대연의 프로필 사진" class="profile-pic">
+                <span class="friend-name">김대연</span>
+                <div class="friend-options">
+                    <a href="#" onclick="deleteFriend()">친구 삭제</a>
+                    <hr>
+                    <a href="view_timetable.html" target="_self">시간표 보기</a>
+                </div>
+            </li>
+            <li class="friend-item">
+                <img src="human.jpg" alt="정경민의 프로필 사진" class="profile-pic">
+                <span class="friend-name">정경민</span>
+                <div class="friend-options">
+                    <a href="#" onclick="deleteFriend()">친구 삭제</a>
+                    <hr>
+                    <a href="view_timetable.html" target="_self">시간표 보기</a>
+                </div>
+            </li>
+            <!-- 더

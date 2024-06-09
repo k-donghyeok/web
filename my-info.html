@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 정보</title>
+    <link rel="stylesheet" href="my_info_styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button class="menu-btn">메뉴</button>
+        <div class="dropdown-content">
+            <a href="index.html" target="_self">내 시간표</a>
+            <a href="timetable_creator.html" target="_self">시간표 만들기</a>
+            <a href="friends.html" target="_self">친구</a>
+            <a href="my-info.html" target="_self">내정보</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>내 정보</h1>
+        <div class="profile">
+            <img src="human.jpg" alt="프로필 사진" class="profile-pic">
+            <div class="profile-info">
+                <p><strong>이름:</strong> 강동혁</p>
+                <p><strong>아이디:</strong> rkdehdgur432</p>
+                <p><strong>이메일:</strong> rkdehdgur432@example.com</p>
+                <button class="delete-account-btn" onclick="deleteAccount()">회원탈퇴</button>
+            </div>
+        </div>
+    </div>
+    <script src="my_info_scripts.js"></script>
+</body>
+</html>
