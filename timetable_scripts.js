@@ -1,18 +1,38 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Firebase SDK 추가
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+
+// Firebase 구성
+const firebaseConfig = {
+    apiKey: "AIzaSyB9KqJAFP7mdAC8wOEFJ3_A3n0DIXFd2wE",
+    authDomain: "web-project-9b882.firebaseapp.com",
+    projectId: "web-project-9b882",
+    storageBucket: "web-project-9b882.appspot.com",
+    messagingSenderId: "615148650882",
+    appId: "1:615148650882:web:d7ff2dde539e9439b1cf9b",
+    measurementId: "G-GB18FJJSC9"
+};
+
+// Firebase 초기화
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.addEventListener('DOMContentLoaded', async function() {
     const menuBtn = document.querySelector('.menu-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
 
     menuBtn.addEventListener('click', function() {
         dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
     });
+
+    // Firestore에서 강의 데이터를 가져와서 표시하는 함수 호출
+    await displayCourses();
 });
 
-function searchCourses() {
-    const query = document.getElementById('course-search').value;
-    const courses = [
-        { id: 1, name: '컴퓨터공학', time: '09:00 - 10:00' },
-        { id: 2, name: '교육철학', time: '10:00 - 11:00' }
-    ];
+async function displayCourses() {
+    const coursesCollection = collection(db, 'courses');
+    const coursesSnapshot = await getDocs(coursesCollection);
+    const courses = coursesSnapshot.docs.map(doc => doc.data());
 
     const resultsContainer = document.getElementById('search-results');
     resultsContainer.innerHTML = '';

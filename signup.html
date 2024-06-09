@@ -5,54 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module">
-        // Firebase SDK 추가
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
-
-        // Firebase 구성
-        const firebaseConfig = {
-            apiKey: "AIzaSyB9KqJAFP7mdAC8wOEFJ3_A3n0DIXFd2wE",
-            authDomain: "web-project-9b882.firebaseapp.com",
-            projectId: "web-project-9b882",
-            storageBucket: "web-project-9b882.appspot.com",
-            messagingSenderId: "615148650882",
-            appId: "1:615148650882:web:d7ff2dde539e9439b1cf9b",
-            measurementId: "G-GB18FJJSC9"
-        };
-
-        // Firebase 초기화
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // 회원가입 함수
-        async function signup(event) {
-            event.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-
-            console.log(`Email: ${email}, Password: ${password}, Confirm Password: ${confirmPassword}`); // 디버깅 로그
-
-            if (password !== confirmPassword) {
-                alert("비밀번호가 일치하지 않습니다.");
-                return;
-            }
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log("Signed up:", userCredential.user);
-                alert("회원가입 성공!");
-                // 회원가입 성공 시 리디렉션 또는 추가 작업을 여기에 작성합니다.
-            } catch (error) {
-                console.error("Error signing up:", error);
-                alert("회원가입 실패: " + error.message);
-            }
-        }
-
-        // 폼에 이벤트 리스너 추가
-        document.querySelector('form').addEventListener('submit', signup);
-    </script>
+    <script type="module" src="join_scripts.js"></script>
 </head>
 <body>
     <div class="container">
