@@ -1,3 +1,5 @@
+/* main_styles.css */
+
 body, html {
     font-family: Arial, sans-serif;
 }
@@ -76,4 +78,29 @@ h1 {
 
 #timetable th {
     background-color: #f4f4f4;
+}
+
+/* 강의 위에 마우스 오버 시 텍스트 표시 */
+.review-hover {
+    position: relative;
+    cursor: pointer;
+}
+
+.review-hover::after {
+    content: "강의평 페이지로 이동";
+    position: absolute;
+    top: -20px; /* 텍스트를 셀 상단 중앙에 배치 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: none;
+    white-space: nowrap;
+}
+
+.review-hover:hover::after {
+    display: block;
 }

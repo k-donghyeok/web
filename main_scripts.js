@@ -1,3 +1,5 @@
+// main_scripts.js
+
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
@@ -103,6 +105,10 @@ async function loadUserTimetable(userId) {
                 if (cell) {
                     cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
                     cell.style.backgroundColor = color; // 배경색 적용
+                    cell.classList.add('review-hover'); // 클래스 추가
+                    cell.addEventListener('click', function() {
+                        window.location.href = `course_review.html?courseId=${course.courseId}`;
+                    });
                 }
             }
         });
