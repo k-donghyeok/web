@@ -49,7 +49,12 @@ async function displayAllCourses() {
     courses.forEach(course => {
         const courseItem = document.createElement('div');
         courseItem.className = 'course-item';
-        courseItem.innerHTML = `${course.name} (${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})`;
+        courseItem.innerHTML = `
+            ${course.id} - ${course.name} (${course.professor})<br>
+            ${course.type} (${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})<br>
+            장소: ${course.location}<br>
+            학년도: ${course.year}
+        `;
         resultsContainer.appendChild(courseItem);
     });
 }
@@ -73,7 +78,12 @@ function addCourseTime() {
 }
 
 async function addCourse() {
+    const courseId = document.getElementById('new-course-id').value;
     const courseName = document.getElementById('new-course-name').value;
+    const courseProfessor = document.getElementById('new-course-professor').value;
+    const courseType = document.getElementById('new-course-type').value;
+    const courseLocation = document.getElementById('new-course-location').value;
+    const courseYear = document.getElementById('new-course-year').value;
     const courseTimeElements = document.querySelectorAll('.course-time');
 
     const courseTimes = Array.from(courseTimeElements).map(el => {
@@ -86,7 +96,12 @@ async function addCourse() {
 
     try {
         const docRef = await addDoc(collection(db, 'courses'), {
+            id: courseId,
             name: courseName,
+            professor: courseProfessor,
+            type: courseType,
+            location: courseLocation,
+            year: courseYear,
             times: courseTimes
         });
         console.log("Document written with ID: ", docRef.id);

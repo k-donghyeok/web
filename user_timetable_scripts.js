@@ -22,10 +22,13 @@ const auth = getAuth(app);
 document.addEventListener('DOMContentLoaded', function() {
     const menuBtn = document.querySelector('.menu-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
+    const searchButton = document.getElementById('search-button');
 
     menuBtn.addEventListener('click', function() {
         dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
     });
+
+    searchButton.addEventListener('click', searchCourses);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -40,19 +43,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-async function displayCourses() {
+async function displayCourses(courses = null) {
     const coursesCollection = collection(db, 'courses');
     const coursesSnapshot = await getDocs(coursesCollection);
-    const courses = coursesSnapshot.docs.map(doc => doc.data());
+    const allCourses = coursesSnapshot.docs.map(doc => doc.data());
+    const filteredCourses = courses || allCourses;
 
     const resultsContainer = document.getElementById('search-results');
     resultsContainer.innerHTML = '';
 
-    courses.forEach(course => {
+    filteredCourses.forEach(course => {
         const courseItem = document.createElement('div');
         courseItem.className = 'course-item';
         courseItem.draggable = true;
-        courseItem.innerHTML = `${course.name} (${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})
+        courseItem.innerHTML = `
+            ${course.id} - ${course.name} (${course.professor})<br>
+            ${course.type} (${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})<br>
+            장소: ${course.location}<br>
+            학년도: ${course.year}
             <div class="course-options">
                 <a href="course_review.html">강의평</a>
                 <a href="#" onclick="addToTimetable(event, '${course.id}')">시간표담기</a>
@@ -132,4 +140,31 @@ async function loadUserTimetable(userId) {
 function getDayIndex(day) {
     const days = ['월', '화', '수', '목', '금'];
     return days.indexOf(day) + 2; // 월요일은 2번째 열부터 시작
+}
+
+function searchCourses() {
+    const searchId = document.getElementById('search-id').value.toLowerCase();
+    const searchName = document.getElementById('search-name').value.toLowerCase();
+    const searchProfessor = document.getElementById('search-professor').value.toLowerCase();
+    const searchType = document.getElementById('search-type').value.toLowerCase();
+    const searchYear = document.getElementById('search-year').value.toLowerCase();
+    
+    const coursesCollection = collection(db, 'courses');
+
+    getDocs(coursesCollection).then((coursesSnapshot) => {
+        const allCourses = coursesSnapshot.docs.map(doc => doc.data());
+        const filteredCourses = allCourses.filter(course => {
+            return (
+                (!searchId || course.id.toLowerCase().includes(searchId)) &&
+                (!searchName || course.name.toLowerCase().includes(searchName)) &&
+                (!searchProfessor || course.professor.toLowerCase().includes(searchProfessor)) &&
+                (!searchType || course.type.toLowerCase().includes(searchType)) &&
+                (!searchYear || course.year.toLowerCase().includes(searchYear))
+            );
+        });
+
+        displayCourses(filteredCourses);
+    }).catch((error) => {
+        console.error("Error searching courses: ", error);
+    });
 }

@@ -18,6 +18,14 @@
     </div>
     <div class="container">
         <h2>내 시간표</h2>
+        <div class="search-bar">
+            <input type="text" id="search-id" placeholder="강좌 ID">
+            <input type="text" id="search-name" placeholder="강좌명">
+            <input type="text" id="search-professor" placeholder="교수명">
+            <input type="text" id="search-type" placeholder="구분">
+            <input type="text" id="search-year" placeholder="학년">
+            <button id="search-button">검색</button>
+        </div>
         <div id="search-results" class="search-results"></div>
         <h3>내 시간표</h3>
         <table id="timetable">
@@ -30,7 +38,6 @@
                     <th>목</th>
                     <th>금</th>
                 </tr>
-                <!--   주석 -->
             </thead>
             <tbody>
                 <tr>
