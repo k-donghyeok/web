@@ -61,37 +61,38 @@ h1 {
     margin-bottom: 20px;
 }
 
-.profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.profile-pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+.form-group {
     margin-bottom: 20px;
-}
-
-.profile-info {
     text-align: left;
 }
 
-.profile-info p {
-    margin: 5px 0;
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.edit-info-btn, .delete-account-btn {
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+button {
     background-color: #333;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
 }
 
-.edit-info-btn:hover, .delete-account-btn:hover {
+button:hover {
     background-color: #555;
+}
+
+.current-profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
 }

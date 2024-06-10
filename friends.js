@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropdownContent = document.querySelector('.dropdown-content');
 
     menuBtn.addEventListener('click', function() {
-        dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
+        if (dropdownContent.style.display === 'block') {
+            dropdownContent.style.display = 'none';
+        } else {
+            dropdownContent.style.display = 'block';
+        }
     });
 });
 

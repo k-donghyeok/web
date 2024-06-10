@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 정보 수정</title>
+    <link rel="stylesheet" href="edit_info_styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button class="menu-btn">메뉴</button>
+        <div class="dropdown-content">
+            <a href="main.html" target="_self">내 시간표</a>
+            <a href="user_timetable.html" target="_self">시간표 관리</a>
+            <a href="friends.html" target="_self">친구</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>내 정보 수정</h1>
+        <form id="edit-info-form">
+            <div class="form-group">
+                <label for="profile-pic">프로필 사진</label>
+                <img id="current-profile-pic" src="" alt="현재 프로필 사진" class="profile-pic">
+                <input type="file" id="profile-pic" accept="image/*">
+                <button type="button" id="delete-profile-pic">프로필 사진 삭제</button>
+            </div>
+            <div class="form-group">
+                <label for="user-name">이름</label>
+                <input type="text" id="user-name" placeholder="이름 입력">
+            </div>
+            <div class="form-group">
+                <label for="user-id">아이디(이메일)</label>
+                <input type="text" id="user-id" readonly>
+            </div>
+            <button type="submit">수정 완료</button>
+        </form>
+    </div>
+    <script src="edit_info_scripts.js" type="module"></script>
+</body>
+</html>
