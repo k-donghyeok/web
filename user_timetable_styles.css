@@ -9,6 +9,8 @@
 .navbar {
     background-color: #333;
     overflow: hidden;
+    width: 72px;
+    position: fixed;
 }
 
 .navbar .menu-btn {
@@ -17,8 +19,9 @@
     padding: 14px 20px;
     border: none;
     cursor: pointer;
-    float: left;
     font-size: 16px;
+    display: block;
+    text-align: center;
 }
 
 .navbar .menu-btn:hover {
@@ -28,22 +31,24 @@
 
 .navbar .dropdown-content {
     display: none;
-    position: absolute;
-    background-color: #f9f9f9;
+    position: fixed;
+    background-color: #333;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    flex-direction: column;
 }
 
 .navbar .dropdown-content a {
-    color: black;
+    color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .navbar .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #555;
 }
 
 /* 검색 바 스타일 */

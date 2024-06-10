@@ -1,59 +1,59 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
     font-family: Arial, sans-serif;
 }
 
 .navbar {
+    background-color: #333;
+    overflow: hidden;
+    width: 72px;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 60px;
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.menu-btn {
+.navbar .menu-btn {
     background-color: #333;
     color: white;
+    padding: 14px 20px;
     border: none;
-    padding: 10px;
     cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
 }
 
-.dropdown-content {
+.navbar .menu-btn:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar .dropdown-content {
     display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 50px;
-    left: 10px;
+    position: fixed;
     background-color: #333;
-    border: 1px solid #ccc;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    flex-direction: column;
 }
 
-.dropdown-content a {
+.navbar .dropdown-content a {
     color: white;
-    padding: 10px;
+    padding: 12px 16px;
     text-decoration: none;
     display: block;
+    white-space: nowrap;
 }
 
-.dropdown-content a:hover {
+.navbar .dropdown-content a:hover {
     background-color: #555;
 }
 
 .container {
-    margin-top: 60px;
+    margin: 0 auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 60px; /* 메뉴 바를 피하기 위해 왼쪽 마진 추가 */
 }
 
 h1 {

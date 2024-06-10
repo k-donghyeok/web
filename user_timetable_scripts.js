@@ -96,9 +96,13 @@ window.addToTimetable = async function(course) {
             }
         }
 
+        // 배경색 할당
+        const color = getColor(timetable.length);
+
         const userTimetableRef = doc(db, `users/${user.uid}/timetable`, course.id);
         setDoc(userTimetableRef, {
-            courseId: course.id
+            courseId: course.id,
+            color: color // 배경색 추가
         }).then(() => {
             alert('시간표에 강의가 추가되었습니다.');
             loadUserTimetable(user.uid);
@@ -195,6 +199,7 @@ async function loadUserTimetable(userId) {
     for (const course of timetable) {
         const courseDoc = await getDoc(doc(db, 'courses', course.courseId));
         const courseData = courseDoc.data();
+        const color = course.color;
 
         courseData.times.forEach(time => {
             const dayIndex = getDayIndex(time.day);
@@ -205,14 +210,11 @@ async function loadUserTimetable(userId) {
             const rowStart = ((startHour - 9) * 2) + (startMinute >= 30 ? 1 : 0);
             const rowEnd = ((endHour - 9) * 2) + (endMinute >= 30 ? 1 : 0);
 
-            const year = parseInt(courseData.year);
-            const backgroundColor = getBackgroundColorByYear(year);
-
             for (let i = rowStart; i < rowEnd; i++) {
                 const cell = document.querySelector(`#timetable tr:nth-child(${i + 1}) td:nth-child(${dayIndex})`);
                 if (cell) {
                     cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
-                    cell.style.backgroundColor = backgroundColor;
+                    cell.style.backgroundColor = color;
                     cell.dataset.courseId = course.courseId; // 셀에 courseId를 저장
                     cell.classList.add('clickable-cell'); // 셀에 클릭 가능 클래스 추가
                     cell.addEventListener('click', showDeleteConfirmation); // 셀 클릭 시 삭제 확인 창 표시
@@ -236,19 +238,13 @@ function getDayIndex(day) {
     return days.indexOf(day) + 2; // 월요일은 2번째 열부터 시작
 }
 
-function getBackgroundColorByYear(year) {
-    switch (year) {
-        case 1:
-            return 'skyblue';
-        case 2:
-            return 'orange';
-        case 3:
-            return 'violet';
-        case 4:
-            return 'lightgreen';
-        default:
-            return 'white';
-    }
+function getColor(index) {
+    const colors = [
+        '#FFCDD2', '#F8BBD0', '#E1BEE7', '#D1C4E9', '#C5CAE9',
+        '#BBDEFB', '#B3E5FC', '#B2EBF2', '#B2DFDB', '#C8E6C9',
+        '#DCEDC8', '#F0F4C3', '#FFF9C4', '#FFECB3', '#FFE0B2'
+    ];
+    return colors[index];
 }
 
 function searchCourses() {
