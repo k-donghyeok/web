@@ -1,7 +1,7 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
 
 // Firebase 구성
@@ -63,17 +63,37 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
         }
     });
-});
 
-function deleteAccount() {
-    if (confirm('정말로 회원탈퇴를 하시겠습니까?')) {
-        const user = auth.currentUser;
-        user.delete().then(() => {
-            alert('회원탈퇴가 완료되었습니다.');
-            window.location.href = 'index.html';
-        }).catch((error) => {
-            console.error('Error:', error);
-            alert('회원탈퇴에 실패하였습니다. 다시 시도해주세요.');
-        });
+    // 회원탈퇴 함수 정의
+    async function deleteAccount() {
+        if (confirm('정말로 회원탈퇴를 하시겠습니까?')) {
+            const user = auth.currentUser;
+            if (user) {
+                try {
+                    // 재인증 절차
+                    const credential = EmailAuthProvider.credential(user.email, prompt('비밀번호를 입력해주세요.'));
+                    await reauthenticateWithCredential(user, credential);
+
+                    // 계정 삭제
+                    await user.delete();
+                    alert('회원탈퇴가 완료되었습니다.');
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    console.error('Error:', error);
+                    if (error.code === 'auth/wrong-password') {
+                        alert('비밀번호가 틀렸습니다. 다시 시도해주세요.');
+                    } else if (error.code === 'auth/requires-recent-login') {
+                        alert('최근 로그인 기록이 없습니다. 다시 로그인해주세요.');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('회원탈퇴에 실패하였습니다. 다시 시도해주세요.');
+                    }
+                }
+            }
+        }
     }
-}
+
+    // 회원탈퇴 버튼에 이벤트 리스너 추가
+    const deleteAccountBtn = document.querySelector('.delete-account-btn');
+    deleteAccountBtn.addEventListener('click', deleteAccount);
+});
