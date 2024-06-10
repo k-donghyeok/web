@@ -107,7 +107,7 @@ async function loadUserTimetable(userId) {
                     cell.style.backgroundColor = color; // 배경색 적용
                     cell.classList.add('review-hover'); // 클래스 추가
                     cell.addEventListener('click', function() {
-                        window.location.href = `course_review.html?courseId=${course.courseId}`;
+                        window.location.href = `course_review.html?course_id=${course.courseId}`;
                     });
                 }
             }
