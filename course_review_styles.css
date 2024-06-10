@@ -71,6 +71,16 @@ body, html {
 
 .course-reviews h2 {
     margin-bottom: 20px;
+    position: relative;
+}
+
+.review-container {
+    max-height: 400px; /* 필요에 따라 높이를 조절합니다 */
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .review {
@@ -82,8 +92,16 @@ body, html {
 }
 
 .rating {
-    font-size: 1.2em;
+    font-size: 1em;
     margin-bottom: 5px;
+}
+
+.filled-star {
+    color: gold; /* 칠해진 별의 색상을 금색으로 */
+}
+
+.empty-star {
+    color: lightgray; /* 빈 별의 색상을 회색으로 */
 }
 
 .more-reviews-btn {
