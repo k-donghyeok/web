@@ -20,15 +20,16 @@ const db = getFirestore(app);
 document.addEventListener('DOMContentLoaded', function() {
     const menuBtn = document.querySelector('.menu-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
+
+    menuBtn.addEventListener('click', function() {
+        dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
+    });
+
     const stars = document.querySelectorAll('.star');
     let selectedRating = 0;
 
     // 로컬 스토리지에서 과목 ID 가져오기
     const courseId = localStorage.getItem('courseId');
-
-    menuBtn.addEventListener('click', function() {
-        dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
-    });
 
     stars.forEach(star => {
         star.addEventListener('click', function() {

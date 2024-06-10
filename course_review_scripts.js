@@ -17,6 +17,13 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.addEventListener('DOMContentLoaded', async function() {
+    const menuBtn = document.querySelector('.menu-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    menuBtn.addEventListener('click', function() {
+        dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get('course_id');
     localStorage.setItem('courseId', courseId);

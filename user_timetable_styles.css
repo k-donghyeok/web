@@ -80,6 +80,10 @@
     margin-bottom: 20px;
 }
 
+h2 {
+    margin-top: 40px;
+}
+
 .course-item {
     padding: 10px;
     border: 1px solid #ccc;
