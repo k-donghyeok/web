@@ -1,8 +1,8 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
-import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+import { getFirestore, doc, getDocs, deleteDoc, collection } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
-import { getStorage, ref, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
+import { getStorage, ref, deleteObject } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
 
 // Firebase 구성
 const firebaseConfig = {
@@ -64,6 +64,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 특정 컬렉션의 모든 문서 삭제 함수
+    async function deleteAllDocumentsInCollection(collectionRef) {
+        const querySnapshot = await getDocs(collectionRef);
+        const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(deletePromises);
+    }
+
     // 회원탈퇴 함수 정의
     async function deleteAccount() {
         if (confirm('정말로 회원탈퇴를 하시겠습니까?')) {
@@ -74,15 +81,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     const credential = EmailAuthProvider.credential(user.email, prompt('비밀번호를 입력해주세요.'));
                     await reauthenticateWithCredential(user, credential);
 
-                    // Firestore에서 사용자 문서 삭제
-                    console.log(`Deleting Firestore document for user: ${user.uid}`);
-                    await deleteDoc(doc(db, 'users', user.uid));
+                    // Firestore에서 사용자 문서 및 하위 컬렉션 삭제
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const timetableCollectionRef = collection(userDocRef, 'timetable');
+
+                    console.log(`Deleting timetable documents for user: ${user.uid}`);
+                    await deleteAllDocumentsInCollection(timetableCollectionRef);
+
+                    console.log(`Deleting timetable collection for user: ${user.uid}`);
+                    await deleteDoc(userDocRef);
+
                     console.log(`Deleted Firestore document for user: ${user.uid}`);
 
                     // 프로필 사진 삭제
                     if (user.photoURL) {
                         const photoRef = ref(storage, user.photoURL);
                         await deleteObject(photoRef);
+                        console.log(`Deleted profile picture for user: ${user.uid}`);
                     }
 
                     // 계정 삭제
