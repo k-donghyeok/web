@@ -116,3 +116,27 @@ th, td {
 td {
     height: 50px;
 }
+
+/* 클릭 가능한 셀 스타일 */
+.clickable-cell {
+    cursor: pointer;
+    position: relative;
+}
+
+.clickable-cell:hover {
+    background-color: #ffdddd;
+}
+
+.clickable-cell::after {
+    content: "삭제 가능";
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+
+.clickable-cell:hover::after {
+    display: block;
+}

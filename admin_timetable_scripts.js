@@ -1,6 +1,6 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, setDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 
 // Firebase 구성
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function displayAllCourses() {
     const coursesCollection = collection(db, 'courses');
     const coursesSnapshot = await getDocs(coursesCollection);
-    const courses = coursesSnapshot.docs.map(doc => doc.data());
+    const courses = coursesSnapshot.docs.map(doc => ({ id: doc.id, data: doc.data() }));
 
     const resultsContainer = document.getElementById('all-courses');
     resultsContainer.innerHTML = '';
@@ -50,12 +50,23 @@ async function displayAllCourses() {
         const courseItem = document.createElement('div');
         courseItem.className = 'course-item';
         courseItem.innerHTML = `
-            ${course.id} - ${course.name} (${course.professor})<br>
-            ${course.type} (${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})<br>
-            장소: ${course.location}<br>
-            학년도: ${course.year}
+            ${course.data.id} - ${course.data.name} (${course.data.professor})<br>
+            ${course.data.type} (${course.data.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})<br>
+            장소: ${course.data.location}<br>
+            학년도: ${course.data.year}<br>
+            학점: ${course.data.credit}
+            <button class="delete-course-button" data-course-id="${course.id}">삭제</button>
         `;
         resultsContainer.appendChild(courseItem);
+    });
+
+    // 삭제 버튼에 이벤트 리스너 추가
+    document.querySelectorAll('.delete-course-button').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const courseId = this.dataset.courseId;
+            deleteCourse(courseId);
+        });
     });
 }
 
@@ -84,6 +95,7 @@ async function addCourse() {
     const courseType = document.getElementById('new-course-type').value;
     const courseLocation = document.getElementById('new-course-location').value;
     const courseYear = document.getElementById('new-course-year').value;
+    const courseCredit = document.getElementById('new-course-credit').value;
     const courseTimeElements = document.querySelectorAll('.course-time');
 
     const courseTimes = Array.from(courseTimeElements).map(el => {
@@ -95,21 +107,35 @@ async function addCourse() {
     });
 
     try {
-        const docRef = await addDoc(collection(db, 'courses'), {
+        const docRef = doc(db, 'courses', courseId);
+        await setDoc(docRef, {
             id: courseId,
             name: courseName,
             professor: courseProfessor,
             type: courseType,
             location: courseLocation,
             year: courseYear,
+            credit: courseCredit,
             times: courseTimes
         });
-        console.log("Document written with ID: ", docRef.id);
+        console.log("Document written with ID: ", courseId);
         alert("강의가 추가되었습니다.");
         await displayAllCourses(); // 강의 추가 후 목록 갱신
     } catch (e) {
         console.error("Error adding document: ", e);
         alert("강의 추가 중 오류가 발생했습니다.");
+    }
+}
+
+async function deleteCourse(courseId) {
+    try {
+        await deleteDoc(doc(db, 'courses', courseId));
+        console.log("Document successfully deleted!");
+        alert("강의가 삭제되었습니다.");
+        await displayAllCourses(); // 강의 삭제 후 목록 갱신
+    } catch (e) {
+        console.error("Error deleting document: ", e);
+        alert("강의 삭제 중 오류가 발생했습니다.");
     }
 }
 

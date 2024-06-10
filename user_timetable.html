@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 시간표</title>
     <link rel="stylesheet" href="user_timetable_styles.css">
-    <script type="module" src="user_timetable_scripts.js"></script>
+    <script type="module" src="user_timetable_scripts.js" defer></script>
 </head>
 <body>
     <div class="navbar">
@@ -24,6 +24,7 @@
             <input type="text" id="search-professor" placeholder="교수명">
             <input type="text" id="search-type" placeholder="구분">
             <input type="text" id="search-year" placeholder="학년">
+            <input type="text" id="search-credit" placeholder="학점">
             <button id="search-button">검색</button>
         </div>
         <div id="search-results" class="search-results"></div>
@@ -40,23 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>09:00 - 10:00</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>10:00 - 11:00</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <!-- 더 많은 행 추가 가능 -->
+                <!-- 시간표 내용이 여기 추가됩니다 -->
             </tbody>
         </table>
     </div>

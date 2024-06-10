@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 시간표 관리</title>
     <link rel="stylesheet" href="admin_timetable_styles.css">
-    <script type="module" src="admin_timetable_scripts.js"></script>
+    <script type="module" src="admin_timetable_scripts.js" defer></script>
 </head>
 <body>
     <div class="navbar">
@@ -24,6 +24,7 @@
             <input type="text" id="new-course-type" placeholder="구분">
             <input type="text" id="new-course-location" placeholder="수업장소">
             <input type="text" id="new-course-year" placeholder="학년">
+            <input type="number" id="new-course-credit" placeholder="학점">
             <div id="course-times">
                 <div class="course-time">
                     <select class="course-day">
