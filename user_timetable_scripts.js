@@ -59,7 +59,7 @@ async function displayCourses(courses = null) {
             ${course.id} - ${course.name} (${course.professor})<br>
             ${course.type} (${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})<br>
             장소: ${course.location}<br>
-            학년도: ${course.year}<br>
+            학년: ${course.year}<br>
             학점: ${course.credit}
             <div class="course-options">
                 <a href="course_review.html">강의평</a>

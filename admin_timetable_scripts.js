@@ -53,7 +53,7 @@ async function displayAllCourses() {
             ${course.data.id} - ${course.data.name} (${course.data.professor})<br>
             ${course.data.type} (${course.data.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')})<br>
             장소: ${course.data.location}<br>
-            학년도: ${course.data.year}<br>
+            학년: ${course.data.year}<br>
             학점: ${course.data.credit}
             <button class="delete-course-button" data-course-id="${course.id}">삭제</button>
         `;
