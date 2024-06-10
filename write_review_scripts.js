@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const stars = document.querySelectorAll('.star');
     let selectedRating = 0;
 
+    // 로컬 스토리지에서 과목 ID 가져오기
+    const courseId = localStorage.getItem('courseId');
+
     menuBtn.addEventListener('click', function() {
         dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
     });
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Firestore에 데이터 추가
             const docRef = await addDoc(collection(db, "reviews"), {
+                courseId: courseId,
                 rating: selectedRating,
                 review: reviewText
             });
