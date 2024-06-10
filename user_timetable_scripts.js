@@ -62,7 +62,7 @@ async function displayCourses(courses = null) {
             학년: ${course.year}<br>
             학점: ${course.credit}
             <div class="course-options">
-                <a href="course_review.html">강의평</a>
+                <a href="course_review.html?course_id=${course.id}">강의평</a>
                 <a href="#" class="add-timetable-button" data-course='${JSON.stringify(course)}'>시간표담기</a>
             </div>`;
         resultsContainer.appendChild(courseItem);

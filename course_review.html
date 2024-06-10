@@ -19,16 +19,14 @@
     <div class="container">
         <div class="course-info">
             <h1>컴퓨터공학 강의실</h1>
-            <p><strong>과목명:</strong> 컴퓨터공학</p>
-            <p><strong>교수명:</strong> 정경민</p>
-            <p><strong>학기:</strong> 24년 1학기</p>
-            <p><strong>과목코드:</strong> 0000000-0000</p>
-            <p><strong>구분:</strong> 전선</p>
-            <p><strong>학년:</strong> 3</p>
-            <p><strong>시간:</strong> 월9, 수9</p>
-            <p><strong>장소:</strong> 1공-3803</p>
-            <p><strong>학점:</strong> 2</p>
-            <p><strong>담은인원:</strong> 22</p>
+            <p id="course-name"></p>
+            <p id="course-professor"></p>
+            <p id="course-id"></p>
+            <p id="course-type"></p>
+            <p id="course-year"></p>
+            <p id="course-time"></p>
+            <p id="course-location"></p>
+            <p id="course-credit"></p>
         </div>
         <div class="course-reviews">
             <h2>강의평</h2>
@@ -40,6 +38,6 @@
             <button class="more-reviews-btn" onclick="location.href='write_review.html'">강의평 작성하기</button>
         </div>
     </div>
-    <script src="course_review_scripts.js"></script>
+    <script type="module" src="course_review_scripts.js"></script>
 </body>
 </html>
