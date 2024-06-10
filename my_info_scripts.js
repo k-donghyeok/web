@@ -1,8 +1,8 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
-import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
+import { getStorage, ref, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
 
 // Firebase 구성
 const firebaseConfig = {
@@ -73,6 +73,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     // 재인증 절차
                     const credential = EmailAuthProvider.credential(user.email, prompt('비밀번호를 입력해주세요.'));
                     await reauthenticateWithCredential(user, credential);
+
+                    // Firestore에서 사용자 문서 삭제
+                    console.log(`Deleting Firestore document for user: ${user.uid}`);
+                    await deleteDoc(doc(db, 'users', user.uid));
+                    console.log(`Deleted Firestore document for user: ${user.uid}`);
+
+                    // 프로필 사진 삭제
+                    if (user.photoURL) {
+                        const photoRef = ref(storage, user.photoURL);
+                        await deleteObject(photoRef);
+                    }
 
                     // 계정 삭제
                     await user.delete();
