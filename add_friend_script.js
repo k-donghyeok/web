@@ -30,10 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // 사용자의 UID 가져오기
             const userId = auth.currentUser.uid;
 
-            // 친구 관계 저장 (문서 ID를 사용자 UID로 설정)
-            await updateDoc(doc(db, 'users', userId), {
-                friendUid: friendUid, // 친구의 UID 저장
-            });
+           
+            await setDoc(doc(db, "users", userId), {
+                friendUid: friendUid
+            }, { merge: true });
+
             console.log('친구 추가 성공');
             alert('친구 추가 성공!');
         } catch (error) {

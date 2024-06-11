@@ -112,10 +112,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 // Firestore에 사용자 정보 업데이트
-                await updateDoc(doc(db, "users", user.uid), {
+                await setDoc(doc(db, "users", user.uid), {
                     name: newName,
                     photoURL: photoURL || deleteField()
-                });
+                }, { merge: true });
 
                 alert('내 정보가 수정되었습니다.');
                 window.location.href = 'my-info.html';
