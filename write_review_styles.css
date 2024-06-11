@@ -53,6 +53,7 @@ body, html {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    text-align: center;
 }
 
 h2 {
@@ -74,6 +75,12 @@ h2 {
 }
 
 .star.selected {
+    color: gold;
+}
+
+.star.selected::before {
+    content: '★';
+    position: absolute;
     color: gold;
 }
 
@@ -100,3 +107,4 @@ button {
 button:hover {
     background-color: #555;
 }
+
