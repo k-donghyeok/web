@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 await updateProfile(user, { photoURL: null });
 
                 // Firestore의 photoURL 필드를 삭제
-                await setDoc(doc(db, "users", user.uid), {
+                await updateDoc(doc(db, "users", user.uid), {
                     photoURL: deleteField()
                 }, { merge: true });
 
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 // Firestore에 사용자 정보 업데이트
-                await setDoc(doc(db, "users", user.uid), {
+                await updateDoc(doc(db, "users", user.uid), {
                     name: newName,
                     photoURL: photoURL || deleteField()
                 });
