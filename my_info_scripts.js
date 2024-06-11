@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getFirestore, doc, getDocs, deleteDoc, collection } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
-import { getStorage, ref, deleteObject } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
+import { getStorage, ref, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
 
 // Firebase 구성
 const firebaseConfig = {
@@ -48,8 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 프로필 사진 가져오기
             if (user.photoURL) {
                 try {
-                    const profilePicRef = ref(storage, user.photoURL);
-                    const profilePicUrl = await getDownloadURL(profilePicRef);
+                    const profilePicUrl = await getDownloadURL(ref(storage, user.photoURL));
                     profilePicElement.src = profilePicUrl;
                 } catch (error) {
                     console.error("Error getting profile picture URL:", error);
