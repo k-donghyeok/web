@@ -29,78 +29,84 @@ document.addEventListener('DOMContentLoaded', function() {
     const friendUid = urlParams.get('friendUid');
 
     // 해당 친구의 시간표를 불러오는 함수 실행
-    viewFriendTimetable(friendUid);
+    loadUserTimetable(friendUid);
 });
-async function viewFriendTimetable(friendUid) {
-    try {
-        // 사용자의 UID를 기반으로 해당 사용자의 시간표 문서에 접근합니다.
-        const userDocRef = doc(db, 'users', friendUid);
-        const userDocSnapshot = await getDoc(userDocRef);
-        
-        if (userDocSnapshot.exists()) {
-            // 사용자 문서가 존재하면 시간표 데이터를 가져옵니다.
-            const timetableRef = collection(userDocRef, 'timetable');
-            const timetableSnapshot = await getDocs(timetableRef);
+async function loadUserTimetable(userId) {
+    const timetableRef = collection(db, `users/${userId}/timetable`);
+    const timetableSnapshot = await getDocs(timetableRef);
+    const timetable = timetableSnapshot.docs.map(doc => doc.data());
 
-            // 시간표 데이터가 있는지 확인합니다.
-            if (!timetableSnapshot.empty) {
-                // 시간표가 있으면 displayTimetable 함수를 호출하여 시간표를 표시합니다.
-                displayTimetable(timetableSnapshot);
-            } else {
-                // 시간표가 없으면 알림을 표시합니다.
-                alert('친구의 시간표가 없습니다.');
-            }
-        } else {
-            // 사용자 문서가 존재하지 않으면 알림을 표시합니다.
-            alert('친구의 사용자 정보를 찾을 수 없습니다.');
+    // 시간표 초기화
+    const timetableBody = document.querySelector('#timetable tbody');
+    timetableBody.innerHTML = ''; // 기존 내용 제거
+
+    const times = [
+        "09:00 - 09:30",
+        "09:30 - 10:00",
+        "10:00 - 10:30",
+        "10:30 - 11:00",
+        "11:00 - 11:30",
+        "11:30 - 12:00",
+        "12:00 - 12:30",
+        "12:30 - 13:00",
+        "13:00 - 13:30",
+        "13:30 - 14:00",
+        "14:00 - 14:30",
+        "14:30 - 15:00",
+        "15:00 - 15:30",
+        "15:30 - 16:00",
+        "16:00 - 16:30",
+        "16:30 - 17:00",
+        "17:00 - 17:30",
+        "17:30 - 18:00"
+    ];
+
+    // 시간표 초기화
+    times.forEach(time => {
+        const row = document.createElement('tr');
+        const timeCell = document.createElement('td');
+        timeCell.textContent = time;
+        row.appendChild(timeCell);
+
+        for (let i = 0; i < 5; i++) {
+            const cell = document.createElement('td');
+            row.appendChild(cell);
         }
-    } catch (error) {
-        // 오류가 발생하면 콘솔에 오류를 기록하고 알림을 표시합니다.
-        console.error('시간표를 불러오는 중 오류가 발생했습니다:', error);
-        alert('시간표를 불러오는 중 오류가 발생했습니다.');
+
+        timetableBody.appendChild(row);
+    });
+
+    // 시간표에 강의 표시
+    for (const course of timetable) {
+        const courseDoc = await getDoc(doc(db, 'courses', course.courseId));
+        const courseData = courseDoc.data();
+        const color = course.color; // 배경색 가져오기
+
+        courseData.times.forEach(time => {
+            const dayIndex = getDayIndex(time.day);
+            const startHour = parseInt(time.start.split(':')[0]);
+            const startMinute = parseInt(time.start.split(':')[1]);
+            const endHour = parseInt(time.end.split(':')[0]);
+            const endMinute = parseInt(time.end.split(':')[1]);
+            const rowStart = ((startHour - 9) * 2) + (startMinute >= 30 ? 1 : 0);
+            const rowEnd = ((endHour - 9) * 2) + (endMinute >= 30 ? 1 : 0);
+
+            for (let i = rowStart; i < rowEnd; i++) {
+                const cell = document.querySelector(`#timetable tbody tr:nth-child(${i + 1}) td:nth-child(${dayIndex})`);
+                if (cell) {
+                    cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
+                    cell.style.backgroundColor = color; // 배경색 적용
+                    cell.classList.add('review-hover'); // 클래스 추가
+                    cell.addEventListener('click', function() {
+                        window.location.href = `course_review.html?course_id=${course.courseId}`;
+                    });
+                }
+            }
+        });
     }
 }
 
-// 시간표를 화면에 표시하는 함수입니다.
-async function displayTimetable(timetableSnapshot) {
-    const timetableTable = document.getElementById('timetable');
-
-    // 요일 배열을 정의합니다.
-    const daysOfWeek = ['월', '화', '수', '목', '금'];
-
-    // 각 시간대와 요일에 해당하는 셀에 데이터를 채웁니다.
-    for (let i = 0; i < 18; i++) { // 18개의 시간대 (30분 간격으로 총 9시부터 17시30분까지)
-        const row = timetableTable.insertRow(-1); // 행을 추가합니다.
-        const timeCell = row.insertCell(0); // 시간 셀을 추가합니다.
-        timeCell.textContent = `${Math.floor(i / 2) + 9}:${i % 2 === 0 ? '00' : '30'} - ${Math.floor((i + 1) / 2) + 9}:${(i + 1) % 2 === 0 ? '00' : '30'}`;
-
-        for (let j = 0; j < 5; j++) { // 요일별로 데이터를 채웁니다.
-            const cell = row.insertCell(j + 1);
-            const day = daysOfWeek[j];
-            
-            // 해당 시간과 요일에 해당하는 시간표 데이터를 찾습니다.
-            const docRef = timetableSnapshot.docs.find(doc => doc.id === day);
-            if (docRef) {
-                // 문서가 있으면 데이터를 가져와서 셀에 표시합니다.
-                const data = docRef.data();
-                const courseId = data[i]; // 해당 시간에 해당 요일에 수업이 있는 courseId를 가져옵니다.
-
-                // 각 수업의 정보를 가져와서 표시합니다.
-                if (courseId) {
-                    const courseDocRef = doc(db, 'courses', courseId);
-                    const courseDocSnapshot = await getDoc(courseDocRef);
-                    if (courseDocSnapshot.exists()) {
-                        const courseData = courseDocSnapshot.data();
-                        cell.textContent = courseData.name; // 강의 이름을 셀에 표시합니다.
-                    } else {
-                        cell.textContent = ''; // 해당 강의 정보가 없을 경우 빈 문자열로 표시합니다.
-                    }
-                } else {
-                    cell.textContent = ''; // 해당 시간에 강의가 없을 경우 빈 문자열로 표시합니다.
-                }
-            } else {
-                cell.textContent = ''; // 해당 시간과 요일에 해당하는 문서가 없으면 빈 문자열을 사용합니다.
-            }
-        }
-    }
+function getDayIndex(day) {
+    const days = ['월', '화', '수', '목', '금'];
+    return days.indexOf(day) + 2; // 월요일은 2번째 열부터 시작
 }
