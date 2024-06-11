@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
     });
     
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search); // URL의 쿼리 문자열 파싱
     const courseId = urlParams.get('course_id');
-    localStorage.setItem('courseId', courseId);
+    localStorage.setItem('courseId', courseId); // coureId 값을 로컬 스토리지에 저장
 
     const course = await getCourseFromFirestore(courseId);
     displayCourseInfo(course);
