@@ -1,7 +1,7 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
-import { getFirestore, collection, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+import { getFirestore, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 
 document.addEventListener('DOMContentLoaded', () => {
    
@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 사용자의 UID 가져오기
             const userId = auth.currentUser.uid;
 
-           
-            await setDoc(doc(db, "users", userId), {
-                friendUid: friendUid
-            }, { merge: true });
+            // 친구 UID를 배열에 추가
+            await updateDoc(doc(db, "users", userId), {
+                friends: arrayUnion(friendUid)
+            });
 
             console.log('친구 추가 성공');
             alert('친구 추가 성공!');

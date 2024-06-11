@@ -1,20 +1,28 @@
+/* body와 html 요소에 대한 스타일 수정 */
 body, html {
     font-family: Arial, sans-serif;
-    background-color: #ffffff; /* 배경색을 흰색으로 변경 */
-    color: #000000; /* 텍스트 색상을 검정색으로 변경 */
+    background-color: #f5f5f5; /* 배경색을 변경 */
+    color: #333; /* 텍스트 색상을 변경 */
+    margin: 0; /* 페이지 상단/하단 여백 제거 */
+    padding: 0; /* 페이지 내부 여백 제거 */
 }
 
+/* navbar 스타일 수정 */
 .navbar {
     background-color: #333;
     overflow: hidden;
     width: 72px;
     position: fixed;
+    top: 0; /* 상단에 고정 */
+    left: 0; /* 좌측에 고정 */
+    bottom: 0; /* 하단에 고정 */
 }
 
+/* menu-btn 스타일 수정 */
 .navbar .menu-btn {
     background-color: #333;
     color: white;
-    padding: 14px 20px;
+    padding: 14px 20px; /* 버튼의 패딩 수정 */
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -22,11 +30,13 @@ body, html {
     width: 100%;
 }
 
+/* menu-btn hover 스타일 수정 */
 .navbar .menu-btn:hover {
     background-color: #ddd;
     color: black;
 }
 
+/* dropdown-content 스타일 수정 */
 .navbar .dropdown-content {
     display: none;
     position: fixed;
@@ -34,46 +44,58 @@ body, html {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    top: 0; /* 상단에 고정 */
+    left: 72px; /* 좌측에 고정된 너비만큼 떨어져 위치 */
+    bottom: 0; /* 하단에 고정 */
     flex-direction: column;
 }
 
+/* dropdown-content 안의 링크 스타일 수정 */
 .navbar .dropdown-content a {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     white-space: nowrap;
+    text-align: center; /* 텍스트 가운데 정렬 */
 }
 
+/* dropdown-content 안의 링크 hover 스타일 수정 */
 .navbar .dropdown-content a:hover {
     background-color: #555;
 }
 
+/* container 스타일 수정 */
 .container {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
 }
 
+/* h1 스타일 수정 */
 h1 {
-    font-size: 2em;
+    font-size: 1.5em; /* 폰트 크기 수정 */
     margin-bottom: 20px;
     margin-top: 40px;
 }
 
+/* timetable 스타일 수정 */
 #timetable {
     width: 100%;
     border-collapse: collapse;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 60px auto 20px; /* 위 여백 추가 및 하단 여백 수정 */
 }
 
+/* timetable 테이블의 th, td 스타일 수정 */
 #timetable th, #timetable td {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd; /* 테두리 색상 변경 */
     padding: 10px;
     text-align: center;
 }
 
+/* timetable 테이블의 th 스타일 수정 */
 #timetable th {
     background-color: #f4f4f4;
+    font-weight: normal; /* 굵은 글자체 제거 */
 }
