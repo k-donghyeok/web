@@ -83,7 +83,7 @@ h1 {
 }
 
 #profile-pic {
-    margin-left: 1450px;
+    margin-left: 50px;
 }
 .file-input-container {
     display: flex;
@@ -98,7 +98,7 @@ h1 {
 }
 
 .form-group input {
-    width: 100%;
+    width: 15%;
     padding: 10px;
     box-sizing: border-box;
 }
