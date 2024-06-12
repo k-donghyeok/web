@@ -195,11 +195,14 @@ async function loadUserTimetable(userId) {
         timetableBody.appendChild(row);
     });
 
+    // 이미 표시된 강의 정보를 추적하는 객체
+    const occupiedCells = {};
+
     // 시간표에 강의 표시
     for (const course of timetable) {
         const courseDoc = await getDoc(doc(db, 'courses', course.courseId));
         const courseData = courseDoc.data();
-        const color = course.color;
+        const color = course.color; // 배경색 가져오기
 
         courseData.times.forEach(time => {
             const dayIndex = getDayIndex(time.day);
@@ -210,14 +213,31 @@ async function loadUserTimetable(userId) {
             const rowStart = ((startHour - 9) * 2) + (startMinute >= 30 ? 1 : 0);
             const rowEnd = ((endHour - 9) * 2) + (endMinute >= 30 ? 1 : 0);
 
+            // 이미 표시된 강의인지 여부를 추적
+            let alreadyDisplayed = false;
+
             for (let i = rowStart; i < rowEnd; i++) {
-                const cell = document.querySelector(`#timetable tr:nth-child(${i + 1}) td:nth-child(${dayIndex})`);
-                if (cell) {
-                    cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
-                    cell.style.backgroundColor = color;
-                    cell.dataset.courseId = course.courseId; // 셀에 courseId를 저장
-                    cell.classList.add('clickable-cell'); // 셀에 클릭 가능 클래스 추가
-                    cell.addEventListener('click', showDeleteConfirmation); // 셀 클릭 시 삭제 확인 창 표시
+                const cellKey = `${i}-${dayIndex}`;
+
+                // 이미 표시된 셀인지 확인
+                if (!occupiedCells[cellKey]) {
+                    const cell = document.querySelector(`#timetable tbody tr:nth-child(${i + 1}) td:nth-child(${dayIndex})`);
+                    if (cell) {
+                        // 해당 셀이 비어있으면 강의 정보를 추가
+                        if (!alreadyDisplayed && !cell.innerHTML) {
+                            // 강의 정보 표시
+                            cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
+                            alreadyDisplayed = true;
+                        }
+                        // 배경색 적용
+                        cell.style.backgroundColor = color;
+                        cell.dataset.courseId = course.courseId; // 셀에 courseId를 저장
+                        cell.classList.add('clickable-cell'); // 셀에 클릭 가능 클래스 추가
+                        cell.addEventListener('click', showDeleteConfirmation); // 셀 클릭 시 삭제 확인 창 표시
+
+                        // 해당 셀을 이미 표시된 셀로 표시
+                        occupiedCells[cellKey] = true;
+                    }
                 }
             }
         });
@@ -244,7 +264,7 @@ function getColor(index) {
         '#BBDEFB', '#B3E5FC', '#B2EBF2', '#B2DFDB', '#C8E6C9',
         '#DCEDC8', '#F0F4C3', '#FFF9C4', '#FFECB3', '#FFE0B2'
     ];
-    return colors[index];
+    return colors[index % colors.length];
 }
 
 function searchCourses() {
