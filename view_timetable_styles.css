@@ -15,7 +15,6 @@ body, html {
     position: fixed;
     top: 0; /* 상단에 고정 */
     left: 0; /* 좌측에 고정 */
-    bottom: 0; /* 하단에 고정 */
 }
 
 /* menu-btn 스타일 수정 */
@@ -46,7 +45,7 @@ body, html {
     z-index: 1;
     top: 0; /* 상단에 고정 */
     left: 72px; /* 좌측에 고정된 너비만큼 떨어져 위치 */
-    bottom: 0; /* 하단에 고정 */
+    height: auto; /* 높이를 내용에 맞게 조정 */
     flex-direction: column;
 }
 
@@ -75,7 +74,7 @@ body, html {
 /* h1 스타일 수정 */
 h1 {
     font-size: 1.5em; /* 폰트 크기 수정 */
-    margin-bottom: 20px;
+    margin-bottom: 5px; /* 하단 여백 추가 */
     margin-top: 40px;
 }
 
@@ -84,7 +83,7 @@ h1 {
     width: 100%;
     border-collapse: collapse;
     max-width: 800px;
-    margin: 60px auto 20px; /* 위 여백 추가 및 하단 여백 수정 */
+    margin: 10px auto 20px; /* 위 여백 추가 및 하단 여백 수정 */
 }
 
 /* timetable 테이블의 th, td 스타일 수정 */
