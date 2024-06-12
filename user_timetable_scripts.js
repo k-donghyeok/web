@@ -237,7 +237,7 @@ async function loadUserTimetable(userId) {
                         // 해당 셀이 비어있으면 강의 정보를 추가
                         if (!alreadyDisplayed && !cell.innerHTML) {
                             // 강의 정보 표시
-                            cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
+                            cell.innerHTML = `${courseData.name}<br><span class="small-text">${courseData.location}</span>`;
                             alreadyDisplayed = true;
                         }
                         // 배경색 적용

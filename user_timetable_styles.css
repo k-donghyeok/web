@@ -121,10 +121,17 @@ table, th, td {
 th, td {
     padding: 10px;
     text-align: center;
+    width: 120px; /* 너비를 고정 */
+    height: 50px; /* 높이를 고정 */
 }
 
 td {
     height: 50px;
+}
+
+.small-text {
+    font-size: 0.8em; /* 글자 크기를 줄이기 위해 상대적인 크기 사용 */
+    color: #555; /* 글자 색상을 변경할 수도 있음 (선택 사항) */
 }
 
 /* 클릭 가능한 셀 스타일 */
