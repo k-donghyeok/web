@@ -71,13 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // 강의평이 제출되었음을 사용자에게 알림
             alert('강의평이 제출되었습니다.');
     
-            // 페이지를 초기화하거나 다른 작업을 수행할 수 있습니다.
-            // 여기서는 페이지를 새로고침합니다.
-            location.reload();
+            // course_review.html 페이지로 리디렉션
+            window.location.href = `course_review.html?course_id=${courseId}`;
         } catch (e) {
             console.error("Error adding document: ", e);
             alert('강의평을 제출하는 중 오류가 발생했습니다.');
         }
     });
-    
 });
