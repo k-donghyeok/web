@@ -48,22 +48,18 @@ async function getCourseFromFirestore(courseId) {
 
 function displayCourseInfo(course) {
     const courseNameElement = document.getElementById('course-name');
-    const courseProfessorElement = document.getElementById('course-professor');
-    const courseIdElement = document.getElementById('course-id');
-    const courseTypeElement = document.getElementById('course-type');
-    const courseYearElement = document.getElementById('course-year');
-    const courseTimeElement = document.getElementById('course-time');
-    const courseLocationElement = document.getElementById('course-location');
-    const courseCreditElement = document.getElementById('course-credit');
+    courseNameElement.innerHTML = `${course.name}`;
+    
+    const table = document.getElementById('course-table');
+    const rows = table.getElementsByTagName('tr');
 
-    courseNameElement.innerHTML = `<strong>과목명:</strong> ${course.name}`;
-    courseProfessorElement.innerHTML = `<strong>교수명:</strong> ${course.professor}`;
-    courseIdElement.innerHTML = `<strong>과목코드:</strong> ${course.id}`;
-    courseTypeElement.innerHTML = `<strong>구분:</strong> ${course.type}`;
-    courseYearElement.innerHTML = `<strong>학년:</strong> ${course.year}`;
-    courseTimeElement.innerHTML = `<strong>시간:</strong> ${course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ')}`;
-    courseLocationElement.innerHTML = `<strong>장소:</strong> ${course.location}`;
-    courseCreditElement.innerHTML = `<strong>학점:</strong> ${course.credit}`;
+    rows[0].cells[1].textContent = course.professor;
+    rows[1].cells[1].textContent = course.id;
+    rows[2].cells[1].textContent = course.type;
+    rows[3].cells[1].textContent = course.year;
+    rows[4].cells[1].textContent = course.times.map(time => `${time.day} ${time.start}-${time.end}`).join(', ');
+    rows[5].cells[1].textContent = course.location;
+    rows[6].cells[1].textContent = course.credit;
 }
 
 async function displayReviews(courseId) {

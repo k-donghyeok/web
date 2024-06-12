@@ -61,6 +61,7 @@ h1 {
 
 .course-info {
     margin-bottom: 20px;
+    margin-left: 40px;
 }
 
 .course-info p {
@@ -120,4 +121,18 @@ h1 {
 
 .more-reviews-btn:hover {
     background-color: #555;
+}
+
+table {
+    border: 0;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    width: 20%;
+}
+td {
+    width: 80%;
 }
