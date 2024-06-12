@@ -85,6 +85,17 @@ window.addToTimetable = async function(course) {
         const timetableSnapshot = await getDocs(timetableRef);
         const timetable = timetableSnapshot.docs.map(doc => doc.data());
 
+        // 같은 강의명이 있는지 확인
+        for (const courseData of timetable) {
+            const courseDoc = await getDoc(doc(db, 'courses', courseData.courseId));
+            const existingCourse = courseDoc.data();
+
+            if (existingCourse.name === course.name) {
+                alert("같은 이름의 강의가 이미 시간표에 있습니다.");
+                return;
+            }
+        }
+
         // 새로운 강의 시간이 기존 시간표와 겹치는지 확인
         for (const courseData of timetable) {
             const courseDoc = await getDoc(doc(db, 'courses', courseData.courseId));

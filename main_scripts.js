@@ -84,55 +84,66 @@ async function loadUserTimetable(userId) {
 
         timetableBody.appendChild(row);
     });
-// 이미 표시된 강의 정보를 추적하는 객체
-const occupiedCells = {};
 
-// 시간표에 강의 표시
-for (const course of timetable) {
-    const courseDoc = await getDoc(doc(db, 'courses', course.courseId));
-    const courseData = courseDoc.data();
-    const color = course.color; // 배경색 가져오기
+    // 이미 표시된 강의 정보를 추적하는 객체
+    const occupiedCells = {};
+    const displayedCourses = new Set(); // 이미 표시된 강의명을 저장하는 Set
 
-    courseData.times.forEach(time => {
-        const dayIndex = getDayIndex(time.day);
-        const startHour = parseInt(time.start.split(':')[0]);
-        const startMinute = parseInt(time.start.split(':')[1]);
-        const endHour = parseInt(time.end.split(':')[0]);
-        const endMinute = parseInt(time.end.split(':')[1]);
-        const rowStart = ((startHour - 9) * 2) + (startMinute >= 30 ? 1 : 0);
-        const rowEnd = ((endHour - 9) * 2) + (endMinute >= 30 ? 1 : 0);
+    // 시간표에 강의 표시
+    for (const course of timetable) {
+        const courseDoc = await getDoc(doc(db, 'courses', course.courseId));
+        const courseData = courseDoc.data();
+        const color = course.color; // 배경색 가져오기
 
-        // 이미 표시된 강의인지 여부를 추적
-        let alreadyDisplayed = false;
+        // 같은 이름의 강의가 이미 표시된 경우 건너뜀
+        if (displayedCourses.has(courseData.name)) {
+            continue;
+        }
 
-        for (let i = rowStart; i < rowEnd; i++) {
-            const cellKey = `${i}-${dayIndex}`;
+        courseData.times.forEach(time => {
+            const dayIndex = getDayIndex(time.day);
+            const startHour = parseInt(time.start.split(':')[0]);
+            const startMinute = parseInt(time.start.split(':')[1]);
+            const endHour = parseInt(time.end.split(':')[0]);
+            const endMinute = parseInt(time.end.split(':')[1]);
+            const rowStart = ((startHour - 9) * 2) + (startMinute >= 30 ? 1 : 0);
+            const rowEnd = ((endHour - 9) * 2) + (endMinute >= 30 ? 1 : 0);
 
-            // 이미 표시된 셀인지 확인
-            if (!occupiedCells[cellKey]) {
-                const cell = document.querySelector(`#timetable tbody tr:nth-child(${i + 1}) td:nth-child(${dayIndex})`);
-                if (cell) {
-                    // 해당 셀이 비어있으면 강의 정보를 추가
-                    if (!alreadyDisplayed && !cell.innerHTML) {
-                        // 강의 정보 표시
-                        cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
-                        alreadyDisplayed = true;
+            // 이미 표시된 강의인지 여부를 추적
+            let alreadyDisplayed = false;
+
+            for (let i = rowStart; i < rowEnd; i++) {
+                const cellKey = `${i}-${dayIndex}`;
+
+                // 이미 표시된 셀인지 확인
+                if (!occupiedCells[cellKey]) {
+                    const cell = document.querySelector(`#timetable tbody tr:nth-child(${i + 1}) td:nth-child(${dayIndex})`);
+                    if (cell) {
+                        // 해당 셀이 비어있으면 강의 정보를 추가
+                        if (!alreadyDisplayed && !cell.innerHTML) {
+                            // 강의 정보 표시
+                            cell.innerHTML = `${courseData.name}<br>${courseData.location}`;
+                            alreadyDisplayed = true;
+                        }
+                        // 배경색 적용
+                        cell.style.backgroundColor = color;
+                        cell.classList.add('review-hover'); // 클래스 추가
+                        cell.addEventListener('click', function() {
+                            window.location.href = `course_review.html?course_id=${course.courseId}`;
+                        });
+
+                        // 해당 셀을 이미 표시된 셀로 표시
+                        occupiedCells[cellKey] = true;
                     }
-                    // 배경색 적용
-                    cell.style.backgroundColor = color;
-                    cell.classList.add('review-hover'); // 클래스 추가
-                    cell.addEventListener('click', function() {
-                        window.location.href = `course_review.html?course_id=${course.courseId}`;
-                    });
-
-                    // 해당 셀을 이미 표시된 셀로 표시
-                    occupiedCells[cellKey] = true;
                 }
             }
-        }
-    });
-}
+        });
 
+        // 강의가 표시되었으면 displayedCourses에 추가
+        if (!displayedCourses.has(courseData.name)) {
+            displayedCourses.add(courseData.name);
+        }
+    }
 }
 
 function getDayIndex(day) {
