@@ -17,10 +17,22 @@
     </div>
     <div class="container">
         <h1>친구 목록</h1>
-        <button class="add-friend-btn" onclick="location.href='add_friend.html'">친구 추가</button>
+        <button class="add-friend-btn" onclick="showAddFriendPopup()">친구 추가</button>
         <ul id="friend-list">
             <!-- 친구 목록 항목 -->
         </ul>
+    </div>
+
+    <div id="add-friend-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeAddFriendPopup()">&times;</span>
+            <h2>친구 추가</h2>
+            <form id="add-friend-form">
+                <label for="friend-uid">친구 UID:</label>
+                <input type="text" id="friend-uid" name="friend-uid" required>
+                <button type="submit">추가</button>
+            </form>
+        </div>
     </div>
 
     <script type="module" src="friends.js"></script>

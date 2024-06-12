@@ -1,7 +1,7 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, arrayRemove } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc, arrayRemove, arrayUnion } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 
 // Firebase 구성
 const firebaseConfig = {
@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
         }
     });
+
+    document.getElementById('add-friend-form').addEventListener('submit', addFriend);
 });
 
 async function loadFriends(userId) {
@@ -109,4 +111,37 @@ async function deleteFriend(userId, friendUid) {
         console.error('친구 삭제 실패:', error);
         alert('친구 삭제 실패: ' + error.message);
     }
+}
+
+async function addFriend(event) {
+    event.preventDefault();
+    const friendUid = document.getElementById('friend-uid').value.trim();
+
+    try {
+        const friendDoc = await getDoc(doc(db, 'users', friendUid));
+        if (!friendDoc.exists()) {
+            throw new Error('존재하지 않는 UID입니다.');
+        }
+
+        const userId = auth.currentUser.uid;
+        await updateDoc(doc(db, "users", userId), {
+            friends: arrayUnion(friendUid)
+        });
+
+        console.log('친구 추가 성공');
+        alert('친구 추가 성공!');
+        closeAddFriendPopup();
+        await loadFriends(userId);
+    } catch (error) {
+        console.error('친구 추가 실패:', error);
+        alert('친구 추가 실패: ' + error.message);
+    }
+}
+
+window.showAddFriendPopup = function() {
+    document.getElementById('add-friend-popup').style.display = 'block';
+}
+
+window.closeAddFriendPopup = function() {
+    document.getElementById('add-friend-popup').style.display = 'none';
 }

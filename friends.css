@@ -144,3 +144,33 @@ h1 {
 .freinds-list:hover {
     background-color: #555;
 }
+
+/* 팝업창 스타일 */
+.popup {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000; /* 상위 레이어에 배치 */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.popup-content {
+    padding: 20px;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}

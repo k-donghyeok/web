@@ -1,6 +1,7 @@
 // Firebase SDK 추가
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 
 // Firebase 구성
 const firebaseConfig = {
@@ -16,6 +17,7 @@ const firebaseConfig = {
 // Firebase 초기화
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // 회원가입 함수
 async function signup(event) {
@@ -34,7 +36,15 @@ async function signup(event) {
     try {
         console.log("Attempting to create user..."); // 추가된 디버깅 로그
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log("Signed up:", userCredential.user);
+        const user = userCredential.user;
+        console.log("Signed up:", user);
+
+        // Firestore에 사용자 문서 생성
+        await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            createdAt: new Date().toISOString()
+        });
+
         alert("회원가입 성공!");
         console.log("Redirecting to login.html");
         window.location.href = 'login.html';
