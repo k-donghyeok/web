@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('친구 추가 실패:', error);
             alert('친구 추가 실패: ' + error.message);
         }
+
+        // 입력 필드를 비웁니다.
+        document.getElementById('friend-uid').value = "";
     }
 
     // 폼에 이벤트 리스너 추가

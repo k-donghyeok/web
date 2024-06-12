@@ -130,3 +130,17 @@ h1 {
 .friend-item:hover .friend-options {
     display: block; /* 친구 항목에 마우스를 올리면 표시 */
 }
+
+.freinds-list {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.freinds-list:hover {
+    background-color: #555;
+}
