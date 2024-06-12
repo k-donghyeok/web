@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 정보</title>
     <link rel="stylesheet" href="my_info_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="navbar">
-        <button class="menu-btn">메뉴</button>
+        <button class="menu-btn"><i class="fas fa-bars"></i></button>
         <div class="dropdown-content">
-            <a href="main.html" target="_self">내 시간표</a>
-            <a href="user_timetable.html" target="_self">시간표 관리</a>
-            <a href="friends.html" target="_self">친구</a>
+            <a href="main.html" target="_self"><i class="fas fa-calendar-alt"></i> 내 시간표</a>
+            <a href="user_timetable.html" target="_self"><i class="fas fa-edit"></i> 시간표 관리</a>
+            <a href="friends.html" target="_self"><i class="fas fa-user-friends"></i> 친구</a>
         </div>
     </div>
     <div class="container">
@@ -24,8 +25,8 @@
                 <p><strong>아이디(이메일):</strong> <span id="user-email"></span></p>
                 <p><strong>가입한 날짜:</strong> <span id="user-created"></span></p>
                 <p><strong>UID:</strong> <span id="user-uid"></span> <button id="copy-uid-btn">복사</button></p>
-                <button class="edit-info-btn" onclick="location.href='edit_info.html'">내정보 수정</button>
-                <button class="delete-account-btn">회원탈퇴</button>
+                <button class="edit-info-btn" onclick="location.href='edit_info.html'">내 정보 수정</button>
+                <button class="delete-account-btn">회원 탈퇴</button>
             </div>
         </div>
     </div>
