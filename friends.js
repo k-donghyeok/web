@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, updateDoc, arrayRemove, arrayUnion } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
 
 // Firebase 구성
 const firebaseConfig = {
@@ -18,6 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 document.addEventListener('DOMContentLoaded', function() {
     const menuBtn = document.querySelector('.menu-btn');
@@ -60,8 +62,18 @@ async function loadFriends(userId) {
                 const friendItem = document.createElement('li');
                 friendItem.className = 'friend-item';
 
+                // 친구의 프로필 사진 가져오기
+                let profilePicUrl = 'human.jpg'; // 기본 프로필 사진 URL
+                if (friendData.photoURL) {
+                    try {
+                        profilePicUrl = await getDownloadURL(ref(storage, friendData.photoURL));
+                    } catch (error) {
+                        console.error('Error getting profile picture URL:', error);
+                    }
+                }
+
                 const profilePic = document.createElement('img');
-                profilePic.src = 'human.jpg'; // 친구 프로필 사진 URL로 변경 필요
+                profilePic.src = profilePicUrl;
                 profilePic.alt = `${friendData.name}의 프로필 사진`;
                 profilePic.className = 'profile-pic';
                 friendItem.appendChild(profilePic);
