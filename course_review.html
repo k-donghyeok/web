@@ -7,25 +7,40 @@
     <link rel="stylesheet" href="course_review_styles.css">
 </head>
 <body>
-    <div class="navbar">
-        <button class="menu-btn">메뉴</button>
-        <div class="dropdown-content">
-            <a href="main.html" target="_self">내 시간표</a>
-            <a href="user_timetable.html" target="_self">시간표 만들기</a>
-            <a href="friends.html" target="_self">친구</a>
-            <a href="my-info.html" target="_self">내정보</a>
-        </div>
-    </div>
     <div class="container">
         <div class="course-info">
             <h1 id="course-name"></h1>
-            <p id="course-professor"></p>
-            <p id="course-id"></p>
-            <p id="course-type"></p>
-            <p id="course-year"></p>
-            <p id="course-time"></p>
-            <p id="course-location"></p>
-            <p id="course-credit"></p>
+
+            <table id="course-table">
+                <tr>
+                    <th>교수명</th>
+                    <td ></td>
+                </tr>
+                <tr>
+                    <th>과목코드</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>구분</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>학년</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>시간</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>장소</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>학점</th>
+                    <td></td>
+                </tr>
+            </table>
         </div>
         <div class="course-reviews">
             <h2>강의평
@@ -36,6 +51,7 @@
             </div>
         </div>
     </div>
+
     <script type="module" src="course_review_scripts.js"></script>
 </body>
 </html>
