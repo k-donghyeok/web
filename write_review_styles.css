@@ -102,7 +102,6 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
 }
 
 button:hover {
@@ -111,4 +110,8 @@ button:hover {
 
 strong {
     color: red;
+}
+
+.button-container button {
+    margin: 10px;
 }

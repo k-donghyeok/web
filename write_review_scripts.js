@@ -20,9 +20,14 @@ const db = getFirestore(app);
 document.addEventListener('DOMContentLoaded', function() {
     const menuBtn = document.querySelector('.menu-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
+    const backButton = document.getElementById('course-review');
 
     menuBtn.addEventListener('click', function() {
         dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    backButton.addEventListener('click', function() {
+        window.history.back(); // 뒤로가기
     });
 
     const stars = document.querySelectorAll('.star');
