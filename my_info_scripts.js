@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userNameElement = document.getElementById('user-name');
     const userEmailElement = document.getElementById('user-email');
     const userCreatedElement = document.getElementById('user-created');
+    const userUidElement = document.getElementById('user-uid');
     const profilePicElement = document.getElementById('profile-pic');
 
     onAuthStateChanged(auth, async (user) => {
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             userNameElement.textContent = user.displayName || '이름 없음';
             userEmailElement.textContent = user.email;
             userCreatedElement.textContent = new Date(user.metadata.creationTime).toLocaleDateString();
+            userUidElement.textContent = user.uid;
 
             // 프로필 사진 가져오기
             if (user.photoURL) {
@@ -61,6 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // 사용자가 로그인되어 있지 않으면 로그인 페이지로 리디렉션
             window.location.href = 'login.html';
         }
+    });
+
+    // UID 복사 기능
+    const copyUidBtn = document.getElementById('copy-uid-btn');
+    copyUidBtn.addEventListener('click', function() {
+        const uid = document.getElementById('user-uid').textContent;
+        navigator.clipboard.writeText(uid).then(() => {
+            alert('UID가 복사되었습니다.');
+        }).catch(err => {
+            console.error('UID 복사 중 오류가 발생했습니다.', err);
+        });
     });
 
     // 특정 컬렉션의 모든 문서 삭제 함수
